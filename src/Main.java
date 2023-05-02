@@ -1,10 +1,13 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
 public class Main {
     private static final String SEP = ": ";
+    private static final String IN_FILENAME = "res/dict.txt";
 
     public static void main(String[] args) throws IOException {
         /*
@@ -25,22 +28,28 @@ public class Main {
         на экран его определение.
         Если слова в словаре нет, программа должна вывести "Не найдено", без кавычек.
          */
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Pls input count of record:");
-        int m = Integer.parseInt(br.readLine());
         HashMap<String, String> dict = new HashMap<>();
+        BufferedReader br = new BufferedReader(new FileReader(new File(IN_FILENAME)));
+        //System.out.print("Pls input count of record:");
+        int m = Integer.parseInt(br.readLine());
+
         String[] lineArray;
         for (int i = 0; i < m; i++) {
-            System.out.print("Pls input one record with separator as '" + SEP + "':");
+            //System.out.print("Pls input one record with separator as '" + SEP + "':");
             String line = br.readLine();
             lineArray = line.split(SEP);
             dict.put(lineArray[0].toLowerCase(), lineArray[1]);
         }
-        System.out.println(dict);
+        br.close();
 
+        for (String key: dict.keySet()
+        ) {
+            System.out.println(key+":"+dict.get(key));
+        }
+
+        BufferedReader brKeyboard = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Input search word:");
-        String search = br.readLine();
+        String search = brKeyboard.readLine();
         String searchAsKey = search.toLowerCase();
         System.out.println(dict.getOrDefault(searchAsKey, "Не найдено\n"));
 
