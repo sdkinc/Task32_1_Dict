@@ -28,6 +28,21 @@ public class Main {
         на экран его определение.
         Если слова в словаре нет, программа должна вывести "Не найдено", без кавычек.
          */
+        HashMap<String, String> dict = readFromFile();
+
+        for (String key: dict.keySet()
+        ) {
+            System.out.println(key+":"+dict.get(key));
+        }
+
+        BufferedReader brKeyboard = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Input search word:");
+        String search = brKeyboard.readLine();
+        String searchAsKey = search.toLowerCase();
+        System.out.println(dict.getOrDefault(searchAsKey, "Не найдено\n"));
+
+    }
+    private static HashMap<String,String>  readFromFile() throws IOException {
         HashMap<String, String> dict = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader(new File(IN_FILENAME)));
         //System.out.print("Pls input count of record:");
@@ -41,17 +56,6 @@ public class Main {
             dict.put(lineArray[0].toLowerCase(), lineArray[1]);
         }
         br.close();
-
-        for (String key: dict.keySet()
-        ) {
-            System.out.println(key+":"+dict.get(key));
-        }
-
-        BufferedReader brKeyboard = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Input search word:");
-        String search = brKeyboard.readLine();
-        String searchAsKey = search.toLowerCase();
-        System.out.println(dict.getOrDefault(searchAsKey, "Не найдено\n"));
-
+        return dict;
     }
 }
