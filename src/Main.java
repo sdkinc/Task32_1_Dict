@@ -28,19 +28,24 @@ public class Main {
         на экран его определение.
         Если слова в словаре нет, программа должна вывести "Не найдено", без кавычек.
          */
-        HashMap<String, String> dict = readFromFile();
 
+        //create and fill HashMap
+        HashMap<String, String> dict = readFromFile();
+        //dev output hashMap
         for (String key: dict.keySet()
         ) {
             System.out.println(key+":"+dict.get(key));
         }
+        //search and print result
+        searchAndPrint(dict);
+    }
 
+    private static void searchAndPrint(HashMap<String, String> dict) throws IOException {
         BufferedReader brKeyboard = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Input search word:");
         String search = brKeyboard.readLine();
         String searchAsKey = search.toLowerCase();
         System.out.println(dict.getOrDefault(searchAsKey, "Не найдено\n"));
-
     }
     private static HashMap<String,String>  readFromFile() throws IOException {
         HashMap<String, String> dict = new HashMap<>();
